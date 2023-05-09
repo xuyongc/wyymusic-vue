@@ -12,7 +12,7 @@
 
   <van-row justify="center">
     <van-col span="23" style="font-size: 50%">
-      我的关注
+      最近发布
     </van-col>
   </van-row>
 
@@ -25,7 +25,7 @@
   </common-card-slot>
 
     <div v-for="comm in commLateList" v-else>
-      <music-list-grid-long-slot src="src/assets/kunkun.jpg" intro="我不是小黑子" text="鸡你太美" radius="50px" span-image-left="3">
+      <music-list-grid-long-slot :src="`http://localhost:8081/api/image/${comm.imagePath}`" :intro="comm.nickName"  radius="50px" span-image-left="3">
         <template #textBottom>
           <span style="line-height: 170%;font-size: 20%;">{{ comm.textContent }}</span>
           <van-row gutter="10">
@@ -47,7 +47,7 @@
           </van-row>
         </template>
         <template #default>
-          <van-icon name="wap-nav" v-if="comm.userId === user.userId" @click="showMusicListTools(comm.communityId)"/>
+          <van-icon name="wap-nav" v-if="user != null && comm.userId === user.userId" @click="showMusicListTools(comm.communityId)"/>
         </template>
       </music-list-grid-long-slot>
 
@@ -73,7 +73,7 @@
   </common-card-slot>
 
   <div v-for="comm in commList" v-else>
-    <music-list-grid-long-slot src="src/assets/kunkun.jpg" intro="我不是小黑子" text="鸡你太美" radius="50px" span-image-left="3">
+    <music-list-grid-long-slot src="src/assets/kunkun.jpg" intro="我不是小黑子" radius="50px" span-image-left="3">
       <template #textBottom>
         <span style="line-height: 170%;font-size: 20%;">{{ comm.textContent }}</span>
         <van-row gutter="10">
@@ -95,7 +95,7 @@
         </van-row>
       </template>
       <template #default>
-        <van-icon name="wap-nav" v-if="comm.userId === user.userId"/>
+        <van-icon name="wap-nav" v-if="user != null && comm.userId === user.userId"/>
       </template>
     </music-list-grid-long-slot>
 
@@ -157,11 +157,16 @@ onMounted(() => {
 })
 
 const onLoad = () => {
+  console.log(result.value == null)
+  if (result.value != null){
+    console.log(result.value)
+  }
   setTimeout(() => {
     if (result.value == null) {
       finished.value = true;
     }
     getFeed(time.value, 1);
+    console.log(commList.value)
   }, 1000)
 }
 

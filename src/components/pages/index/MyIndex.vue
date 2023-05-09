@@ -59,22 +59,22 @@
       </common-card-slot>
 
       <!--    没有显示-->
-<!--      <common-card-slot span="23" class="common-card-slot-style" v-else>-->
-<!--        <template #content>-->
-<!--          <van-cell title="创建歌单" icon="plus" @click="showCreatePopUp"/>-->
-<!--          <music-list-grid-long-slot :src="`http://localhost:8081/api/image/${createMusicList.showImgUrl}`"-->
-<!--                                     :intro="createMusicList.musicListInfo" text="0首"-->
-<!--                                     class="music-list-grid-long-slot-style"-->
-<!--                                     v-for="createMusicList in myCreateMusicList">-->
-<!--            <template #default>-->
-<!--              <van-icon name="wap-nav" @click="showMusicListTools(createMusicList.musicListId)"/>-->
-<!--            </template>-->
-<!--          </music-list-grid-long-slot>-->
-<!--        </template>-->
-<!--      </common-card-slot>-->
+      <!--      <common-card-slot span="23" class="common-card-slot-style" v-else>-->
+      <!--        <template #content>-->
+      <!--          <van-cell title="创建歌单" icon="plus" @click="showCreatePopUp"/>-->
+      <!--          <music-list-grid-long-slot :src="`http://localhost:8081/api/image/${createMusicList.showImgUrl}`"-->
+      <!--                                     :intro="createMusicList.musicListInfo" text="0首"-->
+      <!--                                     class="music-list-grid-long-slot-style"-->
+      <!--                                     v-for="createMusicList in myCreateMusicList">-->
+      <!--            <template #default>-->
+      <!--              <van-icon name="wap-nav" @click="showMusicListTools(createMusicList.musicListId)"/>-->
+      <!--            </template>-->
+      <!--          </music-list-grid-long-slot>-->
+      <!--        </template>-->
+      <!--      </common-card-slot>-->
       <div v-else style="margin-top: 5%">
         <van-cell title="创建歌单" icon="plus" @click="showCreatePopUp"/>
-        <show-music-list :music-list="myCreateMusicList" />
+        <show-music-list :music-list="myCreateMusicList"/>
       </div>
 
     </van-tab>
@@ -91,16 +91,17 @@
         </template>
       </common-card-slot>
       <!--    有显示-->
-      <common-card-slot span="23" class="common-card-slot-style" v-else>
-        <template #content>
-          <music-list-grid-long-slot src="src/assets/kunkun.jpg" intro="鸡你太美" text="0首"
-                                     class="music-list-grid-long-slot-style" v-for="i in 10">
-            <template #default>
-              <van-icon name="wap-nav"/>
-            </template>
-          </music-list-grid-long-slot>
-        </template>
-      </common-card-slot>
+<!--      <common-card-slot span="23" class="common-card-slot-style" v-else>-->
+<!--        <template #content>-->
+<!--          <music-list-grid-long-slot src="src/assets/kunkun.jpg" intro="鸡你太美" text="0首"-->
+<!--                                     class="music-list-grid-long-slot-style" v-for="i in 10">-->
+<!--            <template #default>-->
+<!--              <van-icon name="wap-nav"/>-->
+<!--            </template>-->
+<!--          </music-list-grid-long-slot>-->
+<!--        </template>-->
+<!--      </common-card-slot>-->
+      <show-music-list :music-list="myFavoriteMusicList"/>
     </van-tab>
   </van-tabs>
 
@@ -116,19 +117,19 @@
     <van-button type="primary" size="large" @click="createML(imgFile,createMLTitle)">完成</van-button>
   </van-popup>
 
-<!--  <van-popup-->
-<!--      v-model:show="musicListToolsPopup"-->
-<!--      position="bottom"-->
-<!--      :style="{ height: '7%' }"-->
-<!--  >-->
-<!--    <van-cell title="删除" icon="delete-o" @click="deleteML"/>-->
-<!--  </van-popup>-->
+  <!--  <van-popup-->
+  <!--      v-model:show="musicListToolsPopup"-->
+  <!--      position="bottom"-->
+  <!--      :style="{ height: '7%' }"-->
+  <!--  >-->
+  <!--    <van-cell title="删除" icon="delete-o" @click="deleteML"/>-->
+  <!--  </van-popup>-->
 
   <van-popup
       v-model:show="showMyMusicPopUp"
       position="bottom"
       :style="{ height: '90%' }"
-      >
+  >
     <show-music :music-list="myFavoriteMusic"/>
   </van-popup>
 </template>
@@ -149,17 +150,16 @@ const myCreateMusicList = ref([]);
 const myFavoriteMusicList = ref([]);
 const myFavoriteMusic = ref([]);
 const createMusicListPopup = ref(false);
-const musicListToolsPopup = ref(false);
 const showMyMusicPopUp = ref(false);
 const createMLTitle = ref();
 const createMLImage = ref([]);
-const musicListId = ref();
 const imgFile = ref();
 let imagePath = ref();
 const user = ref();
 
 
 onMounted(async () => {
+
   await axios.get('/user/current', {}).then(function (res) {
     user.value = res.data.data
   })
@@ -229,7 +229,7 @@ const fileUpload = (imageFile) => {
 //   musicListId.value = Id
 // }
 
-const showMyMusicPage = () =>{
+const showMyMusicPage = () => {
   showMyMusicPopUp.value = true;
 }
 

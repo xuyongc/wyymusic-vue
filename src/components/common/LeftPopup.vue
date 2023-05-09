@@ -40,7 +40,7 @@
     </van-cell-group>
 
     <van-cell-group class="cell-inset">
-      <van-cell style="color: #e9403e" title="关闭云音乐"/>
+      <van-cell style="color: #e9403e" title="关闭云音乐" @click="exit"/>
     </van-cell-group>
   </van-popup>
 
@@ -57,7 +57,10 @@
 
 <script setup>
 import {onMounted, ref} from "vue";
+import axios from "axios";
+import {useRouter} from "vue-router";
 
+const router = useRouter();
 const isShowLeftUser = ref(false);
 const isBlack = ref(false);
 const showShare = ref(false);
@@ -92,13 +95,18 @@ const showLeftPanel = () => {
 }
 
 const toSetting = () =>{
-  
+
 }
 
 defineExpose({
   showLeftPanel
 })
 
+const exit = () =>{
+  axios.get('/user/logout').then(function () {
+    router.push('/')
+  })
+}
 </script>
 
 

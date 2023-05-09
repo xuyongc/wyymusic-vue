@@ -14,8 +14,6 @@ const props = defineProps({
   isHave:String
 })
 
-console.log(props.isHave)
-
 </script>
 
 <style scoped>

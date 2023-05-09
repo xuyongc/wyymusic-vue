@@ -17,6 +17,7 @@
       position="bottom"
       :style="{ height: '7%' }"
   >
+
     <van-cell title="删除" icon="delete-o" @click="deleteML"/>
   </van-popup>
 </template>
@@ -32,6 +33,7 @@ const musicListId = ref();
 
 const props = defineProps({
   musicList: [],
+  userId: Number
 })
 
 const deleteML = () => {

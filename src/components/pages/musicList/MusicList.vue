@@ -110,7 +110,9 @@ const favoriteMusic = (musicId) => {
 
 const setLike = (id) => {
   axios.get('/music/list/like', {
-
+    params: {
+      musicListId: id
+    }
   }).then(function (res) {
 
   })
@@ -125,15 +127,6 @@ const setFavorite = (id) => {
 
   })
 }
-
-// const addToML = (musicListId, musicId) => {
-//   axios.get('/', {
-//     params: {
-//       musicListId: musicListId,
-//       musicId: musicId
-//     }
-//   })
-// }
 
 const toComment = (musicId) => {
   router.push({

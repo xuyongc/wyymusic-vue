@@ -18,12 +18,12 @@
   </common-card-slot>
 
   <div v-else v-for="comment in commentList">
-    <music-list-grid-long-slot src="src/assets/kunkun.jpg" intro="我不是小黑子" radius="50px" span-image-left="3">
+    <music-list-grid-long-slot :src="`http://localhost:8081/api/image/${comment.imagePath}`" :intro="comment.nickName" radius="50px" span-image-left="3">
       <template #textBottom>
         <span style="line-height: 170%;font-size: 20%;">{{ comment.content }}</span>
       </template>
       <template #default>
-        <van-icon name="wap-nav" v-if="comment.userId === user.userId"
+        <van-icon name="wap-nav" v-if="user !== null && comment.userId === user.userId"
                   @click="deleteOrUpdateMyComment(comment.commentId)"/>
       </template>
     </music-list-grid-long-slot>
@@ -47,12 +47,12 @@
     </van-row>
 
     <div v-for="comment in commentChildren[0]">
-      <music-list-grid-long-slot src="src/assets/kunkun.jpg" intro="我不是小黑子" radius="50px" span-image-left="3">
+      <music-list-grid-long-slot :src="`http://localhost:8081/api/image/${comment.imagePath}`" :intro="comment.nickName" radius="50px" span-image-left="3">
         <template #textBottom>
           <span style="line-height: 170%;font-size: 20%;" >{{ comment.content }}</span>
         </template>
         <template #default>
-          <van-icon name="wap-nav" v-if="commentChildren[2] === user.userId"
+          <van-icon name="wap-nav" v-if="user !== null && commentChildren[2] === user.userId"
                     @click="deleteOrUpdateMyComment(comment.commentId)"/>
         </template>
       </music-list-grid-long-slot>

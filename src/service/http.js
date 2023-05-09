@@ -4,7 +4,9 @@ import {showFailToast, showSuccessToast} from "vant";
 axios.defaults.baseURL = 'http://localhost:8081/api'
 
 let token = sessionStorage.getItem("token");
+
 axios.interceptors.request.use(function (config) {
+    console.log(token)
     if (token){
         config.headers['authorization'] = token
     }
