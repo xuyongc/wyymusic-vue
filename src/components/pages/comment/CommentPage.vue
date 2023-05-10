@@ -176,9 +176,6 @@ const deleteOrUpdateMyComment = (commentId) => {
   console.log(commentDeleteOrUpdate.value)
 }
 
-const a = () =>{
-  console.log(1);
-}
 
 </script>
 

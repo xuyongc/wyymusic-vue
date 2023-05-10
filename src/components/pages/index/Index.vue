@@ -114,6 +114,7 @@ import axios from "axios";
 import {showFailToast} from "vant";
 import MusicListGridSquareSlot from "../../common-slot/musicListGridSquareSlot.vue";
 import {useRouter} from "vue-router";
+import {getHotMusicList, getIndexImage} from "../../util/CommonUtils.js";
 
 const router = useRouter();
 const isLoading = ref(false);
@@ -133,18 +134,19 @@ const indexImg = ref();
 const hotMusic = ref();
 
 
-onMounted(() => {
+onMounted(async () => {
   //获取主页图片
-  axios.get('/index/get/img', {}).then(function (res) {
-    indexImg.value = res.data.data;
-  }).catch(function (error) {
-    showFailToast('请求失败');
-  })
+
+  indexImg.value =  await getIndexImage;
+  // axios.get('/index/get/img', {}).then(function (res) {
+  //   indexImg.value = res.data.data;
+  // })
 
   //获取歌单
-  axios.get('/music/list/get/hot', {}).then(function (res) {
-    musicLists.value = res.data.data
-  })
+  musicLists.value = await getHotMusicList;
+  // axios.get('/music/list/get/hot', {}).then(function (res) {
+  //   musicLists.value = res.data.data
+  // })
 
   axios.get('/music/hot', {}).then(function (res) {
     hotMusic.value = res.data.data

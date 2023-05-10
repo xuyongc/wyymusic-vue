@@ -143,6 +143,8 @@ import axios from "axios";
 import SearchTop from "../../common/searchTop.vue";
 import ShowMusic from "../../common-show/ShowMusic.vue";
 import ShowMusicList from "../../common-show/ShowMusicList.vue";
+import {getCurrentUser} from "../../util/CommonUtils.js";
+
 
 const router = useRouter();
 const tabIndex = ref(0);
@@ -160,6 +162,7 @@ const user = ref();
 
 onMounted(async () => {
 
+
   await axios.get('/user/current', {}).then(function (res) {
     user.value = res.data.data
   })
@@ -174,9 +177,6 @@ onMounted(async () => {
 
   await axios.get('/music/list/get/favorite', {}).then(function (res) {
     myFavoriteMusicList.value = res.data.data
-  })
-
-  await axios.get('/music/get/favorite', {}).then(function (res) {
   })
 
   await axios.get('/music/get/favorite').then(function (res) {
